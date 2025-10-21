@@ -1,15 +1,37 @@
 from flask import Flask, jsonify
+import mysql.connector
+import pandas as pd
 import random
 
 app = Flask(__name__)
 
+# Database connection function
+def get_products():
+    conn = mysql.connector.connect(
+        host='localhost',
+        user='janani',
+        password='Janani123!',
+        database='ecommerce'
+    )
+    df = pd.read_sql("SELECT * FROM products", conn)
+    conn.close()
+    return df
+
 @app.route('/')
 def home():
-    load_status = random.choice(["Low", "Medium", "High"])
+    df = get_products()
+    
+    # Convert first 5 products to dictionary
+    products_list = df.head(5).to_dict(orient='records')
+    
+    # Add AI-driven stock prediction
+    for product in products_list:
+        # Simulate AI prediction for stock load
+        product['predicted_stock_load'] = random.choice(["Low", "Medium", "High"])
+    
     return jsonify({
-        "message": "E-Commerce Website - AI Load Balancer Active",
-        "predicted_traffic": load_status,
-        "status": "Running Securely"
+        "message": "E-Commerce Website - AI Stock Prediction Active",
+        "products": products_list
     })
 
 if __name__ == '__main__':
