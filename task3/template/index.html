@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Dynamic Pricing Tool</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #3b82f6, #9333ea);
+      color: #fff;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    form {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 30px 40px;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+      width: 320px;
+    }
+
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 8px;
+      font-size: 1em;
+      text-align: center;
+      outline: none;
+    }
+
+    input:focus {
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 12px 25px;
+      background: linear-gradient(90deg, #facc15, #f97316);
+      border: none;
+      border-radius: 8px;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    button:hover {
+      background: linear-gradient(90deg, #f97316, #facc15);
+      transform: scale(1.05);
+    }
+
+    .result {
+      margin-top: 25px;
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #22c55e;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 15px 20px;
+      border-radius: 10px;
+      display: inline-block;
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 0.9em;
+      color: rgba(255,255,255,0.8);
+    }
+
+    /* ✅ Mobile-friendly responsiveness */
+    @media (max-width: 480px) {
+      form {
+        width: 90%;
+        padding: 20px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+      button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>💸 AI Dynamic Pricing Tool</h1>
+
+  <form method="POST">
+    <input type="number" name="base_price" placeholder="Base Price" step="0.01" required><br>
+    <input type="number" name="demand" placeholder="Demand" step="1" required><br>
+    <input type="number" name="competition_price" placeholder="Competitor Price" step="0.01" required><br>
+    <input type="number" name="time_of_day" placeholder="Time of Day (0-23)" step="1" required><br>
+    <input type="number" name="day_of_week" placeholder="Day of Week (0-6)" step="1" required><br>
+    <button type="submit">⚡ Predict Price</button>
+  </form>
+
+  {% if suggested_price is not none %}
+  <div class="result">Suggested Price: ₹{{ suggested_price }}</div>
+  {% endif %}
+
+  <footer>Powered by Flask • Smart AI Pricing © 2025</footer>
+</body>
+</html>
